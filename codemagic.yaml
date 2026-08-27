@@ -1,22 +1,23 @@
 workflows:
   ios-workflow:
     name: M Fitness iOS
+
     environment:
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.mfitness.app
-      vars:
-        APP_STORE_CONNECT_TEAM_ID: YOUR_TEAM_ID
+      xcode: latest
+
     scripts:
       - name: Install dependencies
         script: npm install
+
       - name: Sync Capacitor
         script: npx cap sync ios
+
       - name: Build iOS
         script: |
           cd ios/App
           xcode-project build-ipa \
             --workspace "App.xcworkspace" \
             --scheme "App"
+
     artifacts:
       - build/ios/ipa/*.ipa
