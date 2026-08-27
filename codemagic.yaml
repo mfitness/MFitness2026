@@ -15,12 +15,13 @@ workflows:
       - name: Build iOS
         script: |
           cd ios/App
-          xcode-project build-ipa \
-            --project "App.xcodeproj" \
-            --scheme "App" \
-            --archive-directory build/archive \
-            --ipa-directory build/ipa
+          xcodebuild \
+            -workspace "App.xcworkspace" \
+            -scheme "App" \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            build
 
     artifacts:
-      - ios/App/build/ipa/*.ipa
-      - ios/App/build/archive/*.xcarchive
+      - ios/App/build/**/*.app
