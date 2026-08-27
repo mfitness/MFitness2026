@@ -12,11 +12,19 @@ workflows:
       - name: Sync Capacitor
         script: npx cap sync ios
 
+      - name: Check iOS project
+        script: |
+          cd ios/App
+          echo "Files in ios/App:"
+          ls -la
+          echo "Xcode projects:"
+          find . -maxdepth 2 \( -name "*.xcodeproj" -o -name "*.xcworkspace" \) -print
+
       - name: Build iOS
         script: |
           cd ios/App
           xcodebuild \
-            -workspace "App.xcworkspace" \
+            -project "App.xcodeproj" \
             -scheme "App" \
             -configuration Debug \
             -sdk iphonesimulator \
