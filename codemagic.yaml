@@ -7,17 +7,18 @@ workflows:
 
     scripts:
       - name: Install dependencies
-        script: npm install
+        script: |
+          npm install
 
       - name: Sync Capacitor
-        script: npx cap sync ios
+        script: |
+          npx cap sync ios
 
       - name: Check iOS project
         script: |
           cd ios/App
-          echo "Files in ios/App:"
+          echo "Checking iOS project..."
           ls -la
-          echo "Xcode projects:"
           find . -maxdepth 2 \( -name "*.xcodeproj" -o -name "*.xcworkspace" \) -print
 
       - name: Build iOS
@@ -30,3 +31,6 @@ workflows:
             -sdk iphonesimulator \
             -destination 'generic/platform=iOS Simulator' \
             build
+
+    artifacts:
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
