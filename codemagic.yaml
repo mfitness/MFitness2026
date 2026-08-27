@@ -17,7 +17,10 @@ workflows:
           cd ios/App
           xcode-project build-ipa \
             --project "App.xcodeproj" \
-            --scheme "App"
+            --scheme "App" \
+            --archive-directory build/archive \
+            --ipa-directory build/ipa
 
     artifacts:
-      - build/ios/ipa/*.ipa
+      - ios/App/build/ipa/*.ipa
+      - ios/App/build/archive/*.xcarchive
